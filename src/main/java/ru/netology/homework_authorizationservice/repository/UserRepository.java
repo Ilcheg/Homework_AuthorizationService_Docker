@@ -1,40 +1,27 @@
 package ru.netology.homework_authorizationservice.repository;
 
 import org.springframework.stereotype.Repository;
+import ru.netology.homework_authorizationservice.users.User;
 import ru.netology.homework_authorizationservice.authorities.Authorities;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Repository
 public class UserRepository {
-    private String user;
-    private String password;
+    List<User> userList = new ArrayList<>();
 
     public UserRepository() {
+        userList.add(new User("Sergei", "1234", List.of(Authorities.WRITE, Authorities.DELETE)));
+        userList.add(new User("Pavel", "5555", List.of(Authorities.READ)));
+        userList.add(new User("Daria", "7777", List.of(Authorities.values())));
     }
 
     public List<Authorities> getUserAuthorities(String user, String password) {
-        if (!Objects.equals(user, getUser()) && !Objects.equals(password, getPassword())) {
-            return new ArrayList<>();
+        for (User someUser : userList) {
+            if (someUser.getLogin().equals(user) && someUser.getPassword().equals(password)) {
+                return someUser.getAuthorities();
+            }
         }
         return null;
-    }
-
-    public String getUser() {
-        return user;
-    }
-
-    public void setUser(String user) {
-        this.user = user;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 }
