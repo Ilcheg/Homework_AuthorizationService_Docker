@@ -1,7 +1,5 @@
 package ru.netology.homework_authorizationservice.advice;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -11,7 +9,6 @@ import ru.netology.homework_authorizationservice.exceptions.UnauthorizedUser;
 
 @RestControllerAdvice
 public class ExceptionHandlerAdvice {
-    private static final Logger log = LoggerFactory.getLogger(ExceptionHandlerAdvice.class);
 
     @ExceptionHandler
     public ResponseEntity<String> invalidCredentialsHandler(InvalidCredentials e) {
@@ -20,7 +17,7 @@ public class ExceptionHandlerAdvice {
 
     @ExceptionHandler
     public ResponseEntity<String> unAuthorizedUserHandler(UnauthorizedUser e) {
-        log.error("Unknown user ", e);
+        System.err.println(e.getMessage());
         return new ResponseEntity<>("Unknown user", HttpStatus.UNAUTHORIZED);
     }
 }

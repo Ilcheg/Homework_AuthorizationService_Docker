@@ -22,6 +22,6 @@ public class UserRepository {
                 return someUser.getAuthorities();
             }
         }
-        return null;
+        return Collections.emptyList();
     }
 }
